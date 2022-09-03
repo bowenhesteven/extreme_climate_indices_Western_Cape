@@ -1,0 +1,42 @@
+# ------------------------------------------------
+# This wrapper script calls the 'create.thresholds.from.file' function from the modified climdex.pcic.ncdf package
+# to create thresholds, using data and parameters provided by the user.
+# ------------------------------------------------
+
+library(climdex.pcic.ncdf)
+# list of one to three input files. e.g. c("a.nc","b.nc","c.nc")
+infiles_pr="~/Desktop/climpact-master/www/sample_data/historical-base-period_1961-1990/pr_base_61-90.nc"
+infiles_tasmax="~/Desktop/climpact-master/www/sample_data/historical-base-period_1961-1990/tasmax_base_61-90.nc"
+infiles_tasmin="~/Desktop/climpact-master/www/sample_data/historical-base-period_1961-1990/tasmin_base_61-90.nc"
+input.files = c(infiles_pr,infiles_tasmax,infiles_tasmin)
+
+
+# list of variable names according to above file(s)
+vars=c(tmax="tasmax", tmin="tasmin", prec="prec")
+
+# output file name
+output.file="./www/output/gridded/thresholds.1961-1990.nc"
+
+# author data
+author.data=list(institution="My University", institution_id="MU")
+
+# reference period
+base.range=c(1961,1990)
+
+# number of cores to use (or FALSE)
+cores=FALSE
+
+# print messages?
+verbose=TRUE
+
+# Directory where Climpact is stored. Use full pathname. Leave as NULL if you are running this script from the Climpact directory (where this script was initially stored).
+root.dir=NULL
+
+
+
+######################################
+# Do not modify without a good reason.
+
+fclimdex.compatible=FALSE
+
+create.thresholds.from.file(input.files,output.file,author.data,variable.name.map=vars,base.range=base.range,parallel=cores,verbose=verbose,fclimdex.compatible=fclimdex.compatible,root.dir=root.dir)
